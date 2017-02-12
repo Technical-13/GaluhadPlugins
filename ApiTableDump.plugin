@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <Plugin>
 	<Information>
-		<Name>Dump</Name>
+		<Name>API Table Dump</Name>
 		<Author>Technical_13</Author>
 		<Version>1.01</Version>
+    <Description>This is an updated version of http://www.lotrointerface.com/downloads/info578-APITableDump.html by Galuhad which appears to have been abandoned back in July of 2011.  I've added a [Clear] button to easily clear out the input box for the next input and I've added language support for French and German.
+    </Description>
 	</Information>
-	<Package>GaluhadPlugins.Dump.Main</Package>
+	<Package>GaluhadPlugins.ApiTableDump.Main</Package>
+	<Configuration Apartment="ApiTableDump" />
 </Plugin>
