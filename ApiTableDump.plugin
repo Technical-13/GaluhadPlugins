@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Plugin>
+	<Information>
+		<Name>Dump</Name>
+		<Author>Technical_13</Author>
+		<Version>1.01</Version>
+	</Information>
+	<Package>GaluhadPlugins.Dump.Main</Package>
+</Plugin>
