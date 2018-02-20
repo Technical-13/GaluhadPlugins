@@ -1,5 +1,5 @@
 --[[ Vindar, 11/2010
-     A patch for the Turbine.PluginData bug for europeen clients. It's dirty but it seems to works :)
+     A patch for the Turbine.PluginData bug for European clients. It's dirty but it seems to works :)
 ]]--
 
 

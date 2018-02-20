@@ -2,8 +2,8 @@
 <Plugin>
 	<Information>
 		<Name>Festival Buddy</Name>
-		<Author>Galuhad</Author>
-		<Version>1.4.5</Version>
+		<Author>Technical_13</Author>
+		<Version>1.5.0</Version>
 		<Description>This plugin is designed to help you with the festivities through-out Middle-earth.
 
 Currently supports:
@@ -12,6 +12,7 @@ Currently supports:
 - Summer (2014)
 - Harvestmath (2014)
 - Yule (2014)
+- Treasure Hunt (2018)
 </Description>
 		<Image>GaluhadPlugins/FestivalBuddy/Resources/MainIcon.tga</Image>
 	</Information>

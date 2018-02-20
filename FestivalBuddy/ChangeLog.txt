@@ -1,5 +1,8 @@
-
 Festival Buddy Change Log
+
+v1.5.0
+- Added Treasure Hunt (2018)
+- Major whitespace readability changes
 
 v.1.4.5
 - Updated for Yule 2014

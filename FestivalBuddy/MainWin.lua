@@ -188,7 +188,7 @@ function FillMainWin(FESTIVAL)
 
 	wMainWinHolder:GetControls():Clear();
 
-	wMainWinHolder:SetBackground(_IMAGES[FESTIVAL].BACKGROUND);
+	wMainWinHolder:SetBackground( _IMAGES[ FESTIVAL ].BACKGROUND );
 
 	-- TOKENS --------------------------------------------------------------------------
 	cTokenHolder = Turbine.UI.ListBox();

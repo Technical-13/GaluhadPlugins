@@ -78,14 +78,13 @@ TrajanPro14 = Turbine.UI.Lotro.Font.TrajanPro14;
 Verdana12 = Turbine.UI.Lotro.Font.Verdana12;
 
 
-_QUALITYCOLORS =
-{
+_QUALITYCOLORS = {
 	[0] = Turbine.UI.Color.White;			-- Undefined
 	[5] = Turbine.UI.Color.White;			-- Common
-	[4] = Turbine.UI.Color.Yellow;			-- Uncommon
-	[2] = Turbine.UI.Color.Magenta;			-- Rare
+	[4] = Turbine.UI.Color.Yellow;		-- Uncommon
+	[2] = Turbine.UI.Color.Magenta;		-- Rare
 	[3] = Turbine.UI.Color.Aqua;			-- Incomparable
-	[1] = Turbine.UI.Color.Orange;			-- Legendary
+	[1] = Turbine.UI.Color.Orange;		-- Legendary
 };
 
 
@@ -105,56 +104,41 @@ elseif Turbine.Engine.GetLanguage() == Turbine.Language.Russian then
 end
 
 -- Default Settings
-DEFAULT_SETTINGS =
-	{
+DEFAULT_SETTINGS = {
 	["LANGUAGE"] = CLIENTLANG;
 	["MSGCOLOR"] = "FFFFFF";
 	["FESTIVAL"] = 1;
 	["EMOTESASSIST"] = true;
 	["QSASSIST"] = true;
 	["SHOWSCREEN"] = true;
-
-	["MAINWIN"] =
-		{
-		["VISIBLE"] = true;
-		["X"] = (SCREENWIDTH/2)-225;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
-	["DANCEWIN"] =
-		{
-		["VISIBLE"] = false;
-		["X"] = (SCREENWIDTH/2)-100;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
-	["BARTERWIN"] =
-		{
-		["VISIBLE"] = false;
-		["X"] = (SCREENWIDTH/2)-100;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
-	["ALTWIN"] =
-		{
-		["VISIBLE"] = false;
-		["X"] = (SCREENWIDTH/2)-100;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
-	["EMOTEWIN"] =
-		{
-		["VISIBLE"] = false;
-		["X"] = SCREENWIDTH/2;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
-	["QSWIN"] =
-		{
-		["VISIBLE"] = false;
-		["X"] = SCREENWIDTH/2;
-		["Y"] = SCREENHEIGHT/3;
-		};
-
+	[ "MAINWIN" ] = {
+		[ "VISIBLE" ] = true;
+		[ "X" ] = SCREENWIDTH / 2 - 225;
+		[ "Y" ] = SCREENHEIGHT / 3;
 	};
-
+	[ "DANCEWIN" ] = {
+		[ "VISIBLE" ] = false;
+		[ "X" ] = SCREENWIDTH / 2 - 100;
+		[ "Y" ] = SCREENHEIGHT / 3;
+	};
+	[ "BARTERWIN" ] = {
+		[ "VISIBLE" ] = false;
+		[ "X" ] = SCREENWIDTH / 2 - 100;
+		[ "Y" ] = SCREENHEIGHT / 3;
+	};
+	[ "ALTWIN" ] = {
+		[ "VISIBLE" ] = false;
+		[ "X" ] = SCREENWIDTH / 2 - 100;
+		[ "Y" ] = SCREENHEIGHT / 3;
+	};
+	[ "EMOTEWIN" ] = {
+		[ "VISIBLE" ] = false;
+		[ "X" ] = SCREENWIDTH / 2;
+		[ "Y" ] = SCREENHEIGHT / 3;
+	};
+	[ "QSWIN" ] = {
+		[ "VISIBLE" ] = false;
+		[ "X" ] = SCREENWIDTH / 2;
+		[ "Y" ] = SCREENHEIGHT / 3;
+	};
+};

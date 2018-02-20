@@ -2,8 +2,8 @@
 <PluginConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Id>763</Id>
   <Name>Festival Buddy</Name>
-  <Version>1.4.5</Version>
-  <Author>Galuhad</Author>
+  <Version>1.5.0</Version>
+  <Author>Technical_13</Author>
   <InfoUrl>http://www.lotrointerface.com/downloads/info767</InfoUrl>
   <DownloadUrl>http://www.lotrointerface.com/downloads/download767</DownloadUrl>
   <Descriptors>
