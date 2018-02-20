@@ -1,6 +1,4 @@
 --[[
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 LotRO Dropdown class v.2.0 By Galuhad
 http://www.lotrointerface.com/list.php?skinnerid=3762
 
@@ -8,9 +6,7 @@ This class creates a LOTRO style drop-down menu
 This class uses the AddCallback() function by Garan for assigning events. Please make sure you use
 the same function if you need to assign any additional events.
 
-WARNING:	Plugins using version 1.x of this class will need a bit of recoding due to a number of changes to the
-			constructor and methods used.
-
+WARNING:	Plugins using version 1.x of this class will need a bit of recoding due to a number of changes to the constructor and methods used.
 
 -- USAGE --
 someDropDown = DropDown(list,default)	-- list is the table of strings to include, default [optional] is the string to display on creation.
@@ -38,7 +34,6 @@ SetHeight(), SetSize()						-- Only width can be set using SetWidth(value)
 -- EVENTS --
 DropDown.ItemChanged(Sender,Args)			-- Event sender, Event Args (Args.Index,Args.Text)
 
-
 -- EXAMPLE --
 local listTable = {"First Label","Second Label","Third Label"};	-- table of strings used to create the dropdown
 someDropDown = DropDown(listTable);
@@ -48,16 +43,12 @@ someDropDown:SetPosition(20,50);
 someDropDown.ItemChanged = function (Sender,Args)
 	Turbine.Shell.WriteLine("Index:"..Args.Index..",  Text:"..Args.Text);
 end
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
 --]]
 
 DropDown = {};
 _mtDropDown = {};
 
-
 function DropDown.Constructor(sender,_list,defaultLabel)
-
 	if defaultLabel==nil then
 		if type(_list)=='table' and _list[1]~=nil then
 			defaultLabel=_list[1]
@@ -65,113 +56,94 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 			defaultLabel=""
 		end
 	end
-
-	-- Main Control --
+-- Main Control --
 	local ddLabelContainer = Turbine.UI.Control();
-	ddLabelContainer:SetSize(159,19);
-	ddLabelContainer:SetBackColor(Turbine.UI.Color(0.63,0.63,0.63));
-	ddLabelContainer:SetToolTip(defaultLabel);
-
+		ddLabelContainer:SetSize(159,19);
+		ddLabelContainer:SetBackColor(Turbine.UI.Color(0.63,0.63,0.63));
+		ddLabelContainer:SetToolTip(defaultLabel);
 	local ddLabelBack = Turbine.UI.Control();
-	ddLabelBack:SetParent(ddLabelContainer);
-	ddLabelBack:SetSize(ddLabelContainer:GetWidth()-4,ddLabelContainer:GetHeight()-4);
-	ddLabelBack:SetPosition(2,2);
-	ddLabelBack:SetBackColor(Turbine.UI.Color(0,0,0));
-	ddLabelBack:SetMouseVisible(false);
-
+		ddLabelBack:SetParent(ddLabelContainer);
+		ddLabelBack:SetSize(ddLabelContainer:GetWidth()-4,ddLabelContainer:GetHeight()-4);
+		ddLabelBack:SetPosition(2,2);
+		ddLabelBack:SetBackColor(Turbine.UI.Color(0,0,0));
+		ddLabelBack:SetMouseVisible(false);
 	local lblSelected = Turbine.UI.Label();
-	lblSelected:SetParent(ddLabelBack);
-	lblSelected:SetSize(ddLabelBack:GetWidth()-15,ddLabelBack:GetHeight());
-	lblSelected:SetForeColor(Turbine.UI.Color((229/255),(209/255),(136/255)));
-	lblSelected:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
-	lblSelected:SetFont(Turbine.UI.Lotro.Font.TrajanPro14);
-	lblSelected:SetMultiline(false);
-	lblSelected:SetMouseVisible(false);
-	lblSelected:SetText(defaultLabel);
-
+		lblSelected:SetParent(ddLabelBack);
+		lblSelected:SetSize(ddLabelBack:GetWidth()-15,ddLabelBack:GetHeight());
+		lblSelected:SetForeColor(Turbine.UI.Color((229/255),(209/255),(136/255)));
+		lblSelected:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+		lblSelected:SetFont(Turbine.UI.Lotro.Font.TrajanPro14);
+		lblSelected:SetMultiline(false);
+		lblSelected:SetMouseVisible(false);
+		lblSelected:SetText(defaultLabel);
 	local arrow = Turbine.UI.Control();
-	arrow:SetParent(ddLabelBack);
-	arrow:SetSize(14,14);
-	arrow:SetPosition((ddLabelBack:GetWidth()-15),(ddLabelBack:GetHeight()-15));
-	arrow:SetBackground(0x41007e18);
-	arrow:SetBlendMode(4);
-	arrow:SetMouseVisible(false);
-
+		arrow:SetParent(ddLabelBack);
+		arrow:SetSize(14,14);
+		arrow:SetPosition((ddLabelBack:GetWidth()-15),(ddLabelBack:GetHeight()-15));
+		arrow:SetBackground(0x41007e18);
+		arrow:SetBlendMode(4);
+		arrow:SetMouseVisible(false);
 	local greyBox = Turbine.UI.Window();
-	greyBox:SetParent(ddLabelContainer);
-	greyBox:SetPosition(2,2);
-	greyBox:SetBackColor(Turbine.UI.Color(0.65,0,0,0));
-	greyBox:SetVisible(false);
-
-	-- DropDown List --
+		greyBox:SetParent(ddLabelContainer);
+		greyBox:SetPosition(2,2);
+		greyBox:SetBackColor(Turbine.UI.Color(0.65,0,0,0));
+		greyBox:SetVisible(false);
+-- DropDown List --
 	local ddListContainer = Turbine.UI.Window();
-	ddListContainer:SetSize(ddLabelContainer:GetWidth(),0);
-	ddListContainer:SetBackColor(Turbine.UI.Color(0.63,0.63,0.63));
-	ddListContainer["ChildFocus"] = false;
-	ddListContainer["MaxItems"] = 8;
-	ddListContainer["Selected"] = 0;
-
+		ddListContainer:SetSize(ddLabelContainer:GetWidth(),0);
+		ddListContainer:SetBackColor(Turbine.UI.Color(0.63,0.63,0.63));
+		ddListContainer["ChildFocus"] = false;
+		ddListContainer["MaxItems"] = 8;
+		ddListContainer["Selected"] = 0;
 	ddListContainer.FocusLost = function ()
-		if ddListContainer.ChildFocus == false then ddListContainer:Close() end;
-	end
-
+		if ddListContainer.ChildFocus == false then ddListContainer:Close() end; end
 	local ddListBack = Turbine.UI.Control();
-	ddListBack:SetParent(ddListContainer);
-	ddListBack:SetSize(ddListContainer:GetWidth()-4,0);
-	ddListBack:SetPosition(2,2);
-	ddListBack:SetBackColor(Turbine.UI.Color(0.9,0,0,0));
-
+		ddListBack:SetParent(ddListContainer);
+		ddListBack:SetSize(ddListContainer:GetWidth()-4,0);
+		ddListBack:SetPosition(2,2);
+		ddListBack:SetBackColor(Turbine.UI.Color(0.9,0,0,0));
 	local ddListBox = Turbine.UI.ListBox();
-	ddListBox:SetParent(ddListBack);
-	ddListBox:SetSize(ddListBack:GetWidth()-15,0);
-
+		ddListBox:SetParent(ddListBack);
+		ddListBox:SetSize(ddListBack:GetWidth()-15,0);
 	local sbList = Turbine.UI.Lotro.ScrollBar();
-	sbList:SetParent(ddListBack);
-	sbList:SetOrientation(Turbine.UI.Orientation.Vertical);
-	sbList:SetWidth(8);
-	sbList:SetPosition(ddListBox:GetLeft()+ddListBox:GetWidth()+2,0);
-	sbList:SetVisible(false);
+		sbList:SetParent(ddListBack);
+		sbList:SetOrientation(Turbine.UI.Orientation.Vertical);
+		sbList:SetWidth(8);
+		sbList:SetPosition(ddListBox:GetLeft()+ddListBox:GetWidth()+2,0);
+		sbList:SetVisible(false);
 	ddListBox:SetVerticalScrollBar(sbList);
-
 	sbList.MouseEnter = function ()
 		ddListContainer.ChildFocus = true;
 	end
-
 	sbList.MouseLeave = function ()
 		ddListContainer.ChildFocus = false;
 		ddListContainer:Focus();
 	end
-
 	if type(_list) == 'table' then
 		for k,v in ipairs(_list) do
 			local cItemContainer = Turbine.UI.Control();
-			cItemContainer:SetSize(ddListBox:GetWidth(),18);
-			cItemContainer:SetToolTip(v);
-
+				cItemContainer:SetSize(ddListBox:GetWidth(),18);
+				cItemContainer:SetToolTip(v);
 			local lblItem = Turbine.UI.Label();
-			lblItem:SetParent(cItemContainer);
-			lblItem:SetSize(cItemContainer:GetSize());
-			lblItem:SetFont(Turbine.UI.Lotro.Font.TrajanPro14);
-			lblItem:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
-			lblItem:SetMultiline(false);
-			lblItem:SetMouseVisible(false);
-			lblItem:SetText(v);
-
+				lblItem:SetParent(cItemContainer);
+				lblItem:SetSize(cItemContainer:GetSize());
+				lblItem:SetFont(Turbine.UI.Lotro.Font.TrajanPro14);
+				lblItem:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+				lblItem:SetMultiline(false);
+				lblItem:SetMouseVisible(false);
+				lblItem:SetText(v);
 			if tostring(v) == tostring(defaultLabel) then
 				lblItem:SetForeColor(Turbine.UI.Color.Yellow);
 				ddListContainer.Selected = k;
 			else
 				lblItem:SetForeColor(Turbine.UI.Color((229/255),(209/255),(136/255)));
 			end
-
 			cItemContainer["Label"] = lblItem;
-
 			local ItemMouseEnter = function ()
 				lblItem:SetOutlineColor(Turbine.UI.Color(0.85,0.65,0));
 				lblItem:SetForeColor(Turbine.UI.Color(1,1,1));
 				lblItem:SetFontStyle(8);
 			end
-
 			local ItemMouseLeave = function ()
 				lblItem:SetOutlineColor(Turbine.UI.Color(0,0,0));
 				lblItem:SetFontStyle(0);
@@ -181,7 +153,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 					lblItem:SetForeColor(Turbine.UI.Color((229/255),(209/255),(136/255)));
 				end
 			end
-
 			local ItemMouseDown = function ()
 				lblSelected:SetText(v);
 				ddListContainer:Close();
@@ -191,22 +162,18 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 				lblItem:SetForeColor(Turbine.UI.Color.Yellow);
 				ddLabelContainer.ItemChanged(cItemContainer,{["Text"]=v;["Index"]=k});
 			end
-
 			AddCallback(cItemContainer, "MouseEnter", ItemMouseEnter);
 			AddCallback(cItemContainer, "MouseLeave", ItemMouseLeave);
 			AddCallback(cItemContainer, "MouseDown", ItemMouseDown);
-
 			ddListBox:AddItem(cItemContainer);
 		end
 		if ddListContainer.Selected ~= 0 then ddListBox:EnsureVisible(ddListContainer.Selected) end;
 	end
-
 	ddLabelContainer.ResetLabelColors = function ()
 		for i=1, ddListBox:GetItemCount() do
 			if ddListBox:GetItem(i).Label ~= nil then ddListBox:GetItem(i).Label:SetForeColor(Turbine.UI.Color((229/255),(209/255),(136/255))) end;
 		end
 	end
-
 	ddLabelContainer.RescaleList = function()
 		local height = 0;
 		for i=1, math.min(ddListContainer.MaxItems,ddListBox:GetItemCount()) do
@@ -222,7 +189,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 			if item.Label ~=nil then item.Label:SetWidth(item:GetWidth()) end;
 		end
 	end
-
 	local controlEnter = function ()
 		if ddLabelContainer:IsEnabled() == true then
 			arrow:SetBackground(0x41007e1b);
@@ -232,7 +198,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 		end
 	end
 	AddCallback(ddLabelContainer,"MouseEnter",controlEnter);
-
 	local controlLeave = function ()
 		if ddLabelContainer:IsEnabled() == true then
 			arrow:SetBackground(0x41007e18);
@@ -242,7 +207,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 		end
 	end
 	AddCallback(ddLabelContainer,"MouseLeave",controlLeave);
-
 	local controlDown = function ()
 		ddListContainer:SetPosition(ddLabelContainer:PointToScreen(0,ddLabelContainer:GetHeight()-2));
 		ddLabelContainer:RescaleList();
@@ -251,46 +215,34 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 		ddListContainer:Focus();
 	end
 	AddCallback(ddLabelContainer,"MouseDown",controlDown);
-
-
-	-- MEMBERS ----------------------------------------------------------------------------------------------
-
-	-- Disabled Methods
+-- MEMBERS ----------------------------------------------------------------------------------------------
+-- Disabled Methods
 	ddLabelContainer.SetHeight = function () end;
 	ddLabelContainer.SetSize = function () end;
-
-	-- Diverted Methods
+-- Diverted Methods
 	ddLabelContainer.ApplyWidth = ddLabelContainer.SetWidth;
-
-	-- New Methods
+-- New Methods
 	ddLabelContainer.Close = function ()
 		ddListContainer:Close();
 	end
-
 	ddLabelContainer.GetAlignment = function ()
 		return lblSelected:GetTextAlignment();
 	end
-
 	ddLabelContainer.GetListBox = function ()
 		return ddListBox;
 	end
-
 	ddLabelContainer.GetMaxItems = function ()
 		return ddListContainer.MaxItems;
 	end
-
 	ddLabelContainer.GetText = function ()
 		return lblSelected:GetText();
 	end
-
 	ddLabelContainer.IsEnabled = function ()
 		return not greyBox:IsVisible();
 	end
-
 	ddLabelContainer.Reset = function ()
 		ddListBox:EnsureVisible(1);
 	end
-
 	ddLabelContainer.SetAlignment = function (Sender,ContentAlignment)
 		if ContentAlignment == nil then return end;
 		lblSelected:SetTextAlignment(ContentAlignment);
@@ -298,7 +250,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 			if ddListBox:GetItem(i).Label ~= nil then ddListBox:GetItem(i).Label:SetTextAlignment(ContentAlignment) end;
 		end
 	end
-
 	ddLabelContainer.SetEnabled = function (Sender,Value)
 		if Value == false then
 			greyBox:SetWidth(ddLabelContainer:GetWidth()-4);
@@ -308,12 +259,10 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 			greyBox:SetVisible(false);
 		end
 	end
-
 	ddLabelContainer.SetMaxItems = function (Sender,Value)
 		if Value == nil or type(Value) ~= 'number' then return end;
 		ddListContainer.MaxItems = Value;
 	end
-
 	ddLabelContainer.SetText = function (Sender,Text)
 		if Text == nil then return end;
 		lblSelected:SetText(Text);
@@ -328,7 +277,6 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 			end
 		end
 	end
-
 	ddLabelContainer.SetWidth = function (Sender,Width)
 		if Width == nil then return end;
 		ddLabelContainer:ApplyWidth(Width);
@@ -340,17 +288,11 @@ function DropDown.Constructor(sender,_list,defaultLabel)
 		ddListBack:SetWidth(Width-4);
 		sbList:SetLeft(ddListBox:GetLeft()+ddListBox:GetWidth()+2);
 	end
-
-	-- Events
+-- Events
 	ddLabelContainer.ItemChanged = function () end;
-
 	return ddLabelContainer;
-
 end
-
-
-function _mtDropDown.__call(...)
-    return DropDown.Constructor(...);
+function _mtDropDown.__call( ... )
+    return DropDown.Constructor( ... );
 end
-
-setmetatable(DropDown, _mtDropDown);
+setmetatable( DropDown, _mtDropDown );

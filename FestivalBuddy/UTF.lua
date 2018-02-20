@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- UTF-8 Strings.
--- This single file is completly free. Please use/modify without credits. Ooz
+-- This single file is completely free. Please use/modify without credits. Ooz
 ------------------------------------------------------------------------------
 
 -- UTF 8 Stings. Names based on HTML Entities
