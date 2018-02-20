@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Plugin>
+	<Information>
+		<Name>Festival Buddy</Name>
+		<Author>Galuhad</Author>
+		<Version>1.4.5</Version>
+		<Description>This plugin is designed to help you with the festivities through-out Middle-earth.
+
+Currently supports:
+- Anniversary (2014)
+- Spring (2014)
+- Summer (2014)
+- Harvestmath (2014)
+- Yule (2014)
+</Description>
+		<Image>GaluhadPlugins/FestivalBuddy/Resources/MainIcon.tga</Image>
+	</Information>
+	<Package>GaluhadPlugins.FestivalBuddy.Main</Package>
+	<Configuration Apartment="FestivalBuddy" />
+</Plugin>
